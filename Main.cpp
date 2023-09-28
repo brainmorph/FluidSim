@@ -2,7 +2,7 @@
 #include <SDL.h>
 using namespace std;
 
-int CreateAWindow();
+int CreateAnApp();
 
 int main(int argc, char* argv[])
 {
@@ -18,14 +18,15 @@ int main(int argc, char* argv[])
 	cout << "Press any key to open a window.";
 	cin.get();
 
-	CreateAWindow();
+	CreateAnApp();
 
 	cin.get(); // pause here before exiting
 	return 0;
 }
 
-int CreateAWindow()
+int CreateAnApp()
 {
+	// Create a window
 	SDL_Window* window = SDL_CreateWindow(
 		"Title goes here",
 		SDL_WINDOWPOS_CENTERED,
@@ -76,6 +77,13 @@ int CreateAWindow()
 			{
 				quit = true;
 			}
+			else if (e.type == SDL_KEYDOWN)
+			{
+				if (e.key.keysym.sym == SDLK_w)
+				{
+					rect.y -= 1;
+				}
+			}
 		}
 		
 		// Application code
@@ -90,7 +98,7 @@ int CreateAWindow()
 		SDL_RenderFillRect(renderer, &rect);
 		SDL_RenderPresent(renderer); // update screen
 
-		SDL_Delay(64); // control framerate
+		SDL_Delay(512); // control framerate
 	}
 
 	// Clean and destroy SDL
