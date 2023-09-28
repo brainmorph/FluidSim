@@ -38,12 +38,32 @@ int CreateAWindow()
 	// Check to see if it was created
 	if (!window)
 	{
-		cout << "Womp womp";
+		cout << "Womp womp, something went wrong with trying to create a SDL_Window.";
 		// Potentially spit out more verbose messages here later if needed
 		
 		SDL_Quit();
 		return -1;
 	}
+
+	// Now we need something called a renderer
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED); // use hardware acceleration (GPU)
+	if (!renderer)
+	{
+		cout << "Something went wrong while trying to create SDL_Renderer.";
+		SDL_DestroyWindow(window);
+		SDL_Quit();
+		return -1;
+	}
+
+	// At this point we have a renderer, we can start drawing to it.
+	SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255); // set draw color
+	SDL_RenderClear(renderer); // clear renderer with current draw color
+
+	SDL_Rect rect = { 100, 100, 200, 200 };
+	SDL_SetRenderDrawColor(renderer, 200, 40, 40, 255); // set draw color
+	SDL_RenderFillRect(renderer, &rect);
+
+	SDL_RenderPresent(renderer); // update screen
 
 	// Main loop
 	bool quit = false;
@@ -63,6 +83,7 @@ int CreateAWindow()
 	}
 
 	// Clean and destroy SDL
+	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
