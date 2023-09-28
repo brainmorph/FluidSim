@@ -77,9 +77,20 @@ int CreateAWindow()
 				quit = true;
 			}
 		}
-
+		
 		// Application code
-		// SDL_Delay(16); // control framerate
+		
+		// Clear screen
+		SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255); // set draw color
+		SDL_RenderClear(renderer); // clear renderer with current draw color
+
+		// Move rectangle and redraw it
+		rect.x += 1;
+		SDL_SetRenderDrawColor(renderer, 200, 40, 40, 255); // set draw color
+		SDL_RenderFillRect(renderer, &rect);
+		SDL_RenderPresent(renderer); // update screen
+
+		SDL_Delay(64); // control framerate
 	}
 
 	// Clean and destroy SDL
