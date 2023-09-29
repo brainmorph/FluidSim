@@ -1,8 +1,11 @@
 #include <iostream>
 #include <SDL.h>
+#include <SDL_image.h>
 using namespace std;
 
 int CreateAnApp();
+SDL_Texture* loadTexture(const char*, SDL_Renderer*);
+void blit(SDL_Texture*, int, int, SDL_Renderer*);
 
 int main(int argc, char* argv[])
 {
@@ -56,6 +59,11 @@ int CreateAnApp()
 		return -1;
 	}
 
+	// Now we need to initialize the SDL_image library for loading images
+	IMG_Init(IMG_INIT_PNG);
+
+	SDL_Texture* texture = loadTexture("gfx/test.png", renderer);
+
 	// At this point we have a renderer, we can start drawing to it.
 	SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255); // set draw color
 	SDL_RenderClear(renderer); // clear renderer with current draw color
@@ -86,11 +94,14 @@ int CreateAnApp()
 			}
 		}
 		
-		// Application code
+		// ---- Application code
 		
 		// Clear screen
 		SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255); // set draw color
 		SDL_RenderClear(renderer); // clear renderer with current draw color
+
+		// Draw texture
+		blit(texture, 20, 30, renderer);
 
 		// Move rectangle and redraw it
 		rect.x += 1;
@@ -98,11 +109,34 @@ int CreateAnApp()
 		SDL_RenderFillRect(renderer, &rect);
 		SDL_RenderPresent(renderer); // update screen
 
-		SDL_Delay(512); // control framerate
+		SDL_Delay(256); // control framerate
+
+		// ----
 	}
 
 	// Clean and destroy SDL
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
+}
+
+SDL_Texture* loadTexture(const char* filename, SDL_Renderer* renderer)
+{
+	SDL_Texture* texture;
+	cout << "Loading texture" << endl;
+	
+	texture = IMG_LoadTexture(renderer, filename);
+
+	return texture;
+}
+
+void blit(SDL_Texture* t, int x, int y, SDL_Renderer* renderer)
+{
+	SDL_Rect dest;
+
+	dest.x = x;
+	dest.y = y;
+	SDL_QueryTexture(t, NULL, NULL, &dest.w, &dest.h);
+
+	SDL_RenderCopy(renderer, t, NULL, &dest);
 }
