@@ -11,15 +11,14 @@ int main(int argc, char* argv[])
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
-		cout << "SDL initialization failed. SDL Error: " << SDL_GetError();
+		cout << "SDL initialization failed. SDL Error: " << SDL_GetError() << endl;
 	}
 	else
 	{
-		cout << "SDL initialization succeeded!";
+		cout << "SDL initialization succeeded!" << endl;
 	}
 
-	cout << "Press any key to open a window.";
-	cin.get();
+	cout << "\nLaunching the app..." << endl;
 
 	CreateAnApp();
 
@@ -34,7 +33,7 @@ int CreateAnApp()
 		"Title goes here",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		800,
+		1000,
 		600,
 		SDL_WINDOW_SHOWN
 	);
@@ -100,14 +99,17 @@ int CreateAnApp()
 		SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255); // set draw color
 		SDL_RenderClear(renderer); // clear renderer with current draw color
 
-		// Draw texture
-		blit(texture, 20, 30, renderer);
-
 		// Move rectangle and redraw it
 		rect.x += 1;
 		SDL_SetRenderDrawColor(renderer, 200, 40, 40, 255); // set draw color
 		SDL_RenderFillRect(renderer, &rect);
-		SDL_RenderPresent(renderer); // update screen
+		
+		// Draw texture
+		blit(texture, rect.x - 10, rect.y - 10, renderer);
+
+		// Paint screen
+		SDL_RenderPresent(renderer);
+
 
 		SDL_Delay(256); // control framerate
 
@@ -123,7 +125,7 @@ int CreateAnApp()
 SDL_Texture* loadTexture(const char* filename, SDL_Renderer* renderer)
 {
 	SDL_Texture* texture;
-	cout << "Loading texture" << endl;
+	cout << "Loading texture..." << endl;
 	
 	texture = IMG_LoadTexture(renderer, filename);
 
