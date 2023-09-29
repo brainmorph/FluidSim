@@ -90,6 +90,18 @@ int CreateAnApp()
 				{
 					rect.y -= 1;
 				}
+				else if (e.key.keysym.sym == SDLK_a)
+				{
+					rect.x -= 1;
+				}
+				else if (e.key.keysym.sym == SDLK_s)
+				{
+					rect.y += 1;
+				}
+				else if (e.key.keysym.sym == SDLK_d)
+				{
+					rect.x += 1;
+				}
 			}
 		}
 		
@@ -100,7 +112,6 @@ int CreateAnApp()
 		SDL_RenderClear(renderer); // clear renderer with current draw color
 
 		// Move rectangle and redraw it
-		rect.x += 1;
 		SDL_SetRenderDrawColor(renderer, 200, 40, 40, 255); // set draw color
 		SDL_RenderFillRect(renderer, &rect);
 		
