@@ -3,7 +3,12 @@
 #include <SDL_image.h>
 using namespace std;
 
-int CreateAnApp();
+int RunApplication();
+void Update(SDL_Renderer* renderer, SDL_Rect& rect, SDL_Texture* texture);
+void DrawTexture(SDL_Texture* texture, SDL_Rect& rect, SDL_Renderer* renderer);
+void DrawRectangle(SDL_Renderer* renderer, SDL_Rect& rect);
+void PushBufferToScreen(SDL_Renderer* renderer);
+void ClearEntireScreen(SDL_Renderer* renderer);
 SDL_Texture* loadTexture(const char*, SDL_Renderer*);
 void blit(SDL_Texture*, int, int, SDL_Renderer*);
 
@@ -19,14 +24,13 @@ int main(int argc, char* argv[])
 	}
 
 	cout << "\nLaunching the app..." << endl;
-
-	CreateAnApp();
+	RunApplication();
 
 	cin.get(); // pause here before exiting
 	return 0;
 }
 
-int CreateAnApp()
+int RunApplication()
 {
 	// Create a window
 	SDL_Window* window = SDL_CreateWindow(
@@ -60,7 +64,6 @@ int CreateAnApp()
 
 	// Now we need to initialize the SDL_image library for loading images
 	IMG_Init(IMG_INIT_PNG);
-
 	SDL_Texture* texture = loadTexture("gfx/test.png", renderer);
 
 	// At this point we have a renderer, we can start drawing to it.
@@ -88,41 +91,27 @@ int CreateAnApp()
 			{
 				if (e.key.keysym.sym == SDLK_w)
 				{
-					rect.y -= 1;
+					rect.y -= 10;
 				}
 				else if (e.key.keysym.sym == SDLK_a)
 				{
-					rect.x -= 1;
+					rect.x -= 10;
 				}
 				else if (e.key.keysym.sym == SDLK_s)
 				{
-					rect.y += 1;
+					rect.y += 10;
 				}
 				else if (e.key.keysym.sym == SDLK_d)
 				{
-					rect.x += 1;
+					rect.x += 10;
 				}
 			}
 		}
 		
 		// ---- Application code
 		
-		// Clear screen
-		SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255); // set draw color
-		SDL_RenderClear(renderer); // clear renderer with current draw color
-
-		// Move rectangle and redraw it
-		SDL_SetRenderDrawColor(renderer, 200, 40, 40, 255); // set draw color
-		SDL_RenderFillRect(renderer, &rect);
-		
-		// Draw texture
-		blit(texture, rect.x - 10, rect.y - 10, renderer);
-
-		// Paint screen
-		SDL_RenderPresent(renderer);
-
-
-		SDL_Delay(256); // control framerate
+		Update(renderer, rect, texture);
+		SDL_Delay(16); // control framerate
 
 		// ----
 	}
@@ -131,6 +120,49 @@ int CreateAnApp()
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
+}
+
+/// <summary>
+/// Application logic for each frame
+/// </summary>
+/// <param name="renderer"></param>
+/// <param name="rect"></param>
+/// <param name="texture"></param>
+void Update(SDL_Renderer* renderer, SDL_Rect& rect, SDL_Texture* texture)
+{
+	ClearEntireScreen(renderer);
+
+	// Choose color and draw rectangle
+	DrawRectangle(renderer, rect);
+
+	// Draw texture
+	DrawTexture(texture, rect, renderer);
+
+	// Push to screen
+	PushBufferToScreen(renderer);
+}
+
+void DrawTexture(SDL_Texture* texture, SDL_Rect& rect, SDL_Renderer* renderer)
+{
+	blit(texture, rect.x - 10, rect.y - 10, renderer);
+}
+
+void DrawRectangle(SDL_Renderer* renderer, SDL_Rect& rect)
+{
+	SDL_SetRenderDrawColor(renderer, 200, 40, 40, 255); // set draw color
+	SDL_RenderFillRect(renderer, &rect);
+}
+
+void PushBufferToScreen(SDL_Renderer* renderer)
+{
+	SDL_RenderPresent(renderer);
+}
+
+void ClearEntireScreen(SDL_Renderer* renderer)
+{
+	// Clear screen
+	SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255); // set draw color
+	SDL_RenderClear(renderer); // clear renderer with current draw color
 }
 
 SDL_Texture* loadTexture(const char* filename, SDL_Renderer* renderer)
