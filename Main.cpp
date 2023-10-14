@@ -25,8 +25,9 @@ int main(int argc, char* argv[])
 	}
 
 	cout << "\nCreating Grid..." << endl;
-	Grid *g = new Grid(10, 10);
+	Grid* g = new Grid(100, 100);
 
+	cout << "Grid has: " << g->Rows << " rows and " << g->Cols << " columns." << endl;
 
 
 	cout << "\nLaunching the app..." << endl;

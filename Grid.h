@@ -3,12 +3,11 @@
 class Grid
 {
 public:
+	int Rows;
+	int Cols;
 	Grid(int rows, int cols);
 
 private:
-	int mRows;
-	int mCols;
-
 	// 2D Vector
 	int** mGrid;
 };
