@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include "Grid.h"
 using namespace std;
 
 int RunApplication();
@@ -22,6 +23,11 @@ int main(int argc, char* argv[])
 	{
 		cout << "SDL initialization succeeded!" << endl;
 	}
+
+	cout << "\nCreating Grid..." << endl;
+	Grid *g = new Grid(10, 10);
+
+
 
 	cout << "\nLaunching the app..." << endl;
 	RunApplication();
@@ -108,11 +114,9 @@ int RunApplication()
 			}
 		}
 		
-		// ---- Application code
-		
+		// ---- Application code ----
 		Update(renderer, rect, texture);
 		SDL_Delay(16); // control framerate
-
 		// ----
 	}
 
