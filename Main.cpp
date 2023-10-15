@@ -1,7 +1,10 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+
 #include "Grid.h"
+#include "GoverningEquations.h"
+
 using namespace std;
 
 int RunApplication();
@@ -24,16 +27,23 @@ int main(int argc, char* argv[])
 		cout << "SDL initialization succeeded!" << endl;
 	}
 
+	// ---- HIGHLY EXPERIMENTAL ----
 	cout << "\nCreating Grid..." << endl;
-	Grid* g = new Grid(100, 100);
-
+	Grid* g = new Grid(3, 20);
 	cout << "Grid has: " << g->Rows << " rows and " << g->Cols << " columns." << endl;
 
+
+	cout << "\nRunning test equations..." << endl;
+	GoverningEquations* ge = new GoverningEquations();
+	vector<double> massMatrix = ge->initialize1DMatrix(3);
+	vector<vector<double>> wMatrix = ge->initialize2DMatrix(10, 2);
+	//ge->density_rho_i(massMatrix, wMatrix);
+	// ----
 
 	cout << "\nLaunching the app..." << endl;
 	RunApplication();
 
-	cin.get(); // pause here before exiting
+	//cin.get(); // pause here before exiting
 	return 0;
 }
 
