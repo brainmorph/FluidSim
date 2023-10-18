@@ -1,17 +1,25 @@
 #include "GoverningEquations.h"
+using namespace std;
+
+// Smooth Particle Hydrodynamics (SPH)
+// as outlined on rlguy.com/sphfluidsim/
 
 GoverningEquations::GoverningEquations()
 {
 
 }
 
-double GoverningEquations::density_rho_i(std::vector<double> massMatrix,std::vector<std::vector<double>>& wMatrix)
+double GoverningEquations::density_rho_i(std::vector<double> massMatrix,std::vector<std::vector<double>>& smoothingMatrix)
 {
 	double density = 0.0;
 
+	// density_i = sum( mass_i * smoothingMatrix_ij)
 	for (int i = 0; i < massMatrix.size(); i++)
 	{
-		density += massMatrix[i];
+		for (int i = 0; i < massMatrix.size(); i++)
+		{
+			density += massMatrix[i];
+		}
 
 		// Log info
 		std::cout << "massMatrix[" << i << "] = " << massMatrix[i] << std::endl;

@@ -3,9 +3,6 @@
 #include <iostream>
 #include <vector>
 
-// Using Smooth Particle Hydrodynamics (SPH)
-// as outlined on rlguy.com/sphfluidsim/
-
 class GoverningEquations
 {
 public:

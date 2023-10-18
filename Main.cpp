@@ -4,6 +4,7 @@
 
 #include "Grid.h"
 #include "GoverningEquations.h"
+#include "WorldState.h"
 
 using namespace std;
 
@@ -32,6 +33,9 @@ int main(int argc, char* argv[])
 	Grid* g = new Grid(3, 20);
 	cout << "Grid has: " << g->Rows << " rows and " << g->Cols << " columns." << endl;
 
+
+	WorldState* ws = new WorldState();
+	ws->RunWorld();
 
 	cout << "\nRunning test equations..." << endl;
 	GoverningEquations* ge = new GoverningEquations();
