@@ -130,6 +130,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GraphicsManager.cpp" />
+    <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="GoverningEquations.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -137,6 +139,8 @@
     <ClCompile Include="WorldState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GraphicsManager.h" />
+    <ClInclude Include="Vector2D.h" />
     <ClInclude Include="GoverningEquations.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Particle.h" />

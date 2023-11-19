@@ -6,16 +6,23 @@
 
 using namespace std;
 
-void WorldState::RunWorld()
+void WorldState::StartWorld()
 {
-	cout << "How many particles?" << endl;
-
 	int numParticles;
+	cout << "How many particles?" << endl;
 	cin >> numParticles;
 
-	vector<Particle> ParticleMatrix;
 	for (int i = 0; i < numParticles; i++)
 	{
 		ParticleMatrix.push_back(Particle());
+	}
+}
+
+void WorldState::RunWorld()
+{
+	// At this point we have a bunch of particles inside an array
+	for(Particle p : ParticleMatrix)
+	{
+		p.UpdatePosition();
 	}
 }

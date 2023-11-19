@@ -4,6 +4,7 @@ class Particle
 {
 public:
 	Particle();
+	void UpdatePosition();
 
 	// in C++ you can make structs act as datatypes if you name the struct like this
 	struct Position{ 
