@@ -22,7 +22,7 @@ double Vector2D::Get_x()
 
 double Vector2D::Get_y()
 {
-	return _x;
+	return _y;
 }
 
 Vector2D* Vector2D::Add(Vector2D RH_Vector)
