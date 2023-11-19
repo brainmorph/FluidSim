@@ -14,3 +14,21 @@ void Vector2D::Print()
 	cout << "x: " << _x << endl;
 	cout << "y: " << _y << endl;
 }
+
+double Vector2D::Get_x()
+{
+	return _x;
+}
+
+double Vector2D::Get_y()
+{
+	return _x;
+}
+
+Vector2D* Vector2D::Add(Vector2D RH_Vector)
+{
+	_x += RH_Vector.Get_x();
+	_y += RH_Vector.Get_y();
+	
+	return this;
+}
