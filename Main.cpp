@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 
 	Particle pArray[100];
 	
-	while (true)
+	while (false)
 	{
 		for (int i = 0; i < 100; i++)
 		{

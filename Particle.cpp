@@ -2,7 +2,7 @@
 
 // Constructor
 Particle::Particle()
-	: pos(0, 0), vel(1, 1), acc(0,0), dt(0.1)
+	: pos(0, 0), vel(1, 1), acc(0,0), dt(0.001)
 {
 	pos.Set_x(0.0);
 	pos.Set_y(0.0);

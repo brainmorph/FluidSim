@@ -60,6 +60,7 @@ int GraphicsManager::RunApplication()
 	// Now we need to initialize the SDL_image library for loading images
 	IMG_Init(IMG_INIT_PNG);
 	SDL_Texture* texture = loadTexture("gfx/test.png", renderer);
+	SDL_Texture* texture2 = loadTexture("gfx/sphere_small.png", renderer);
 
 	// At this point we have a renderer, we can start drawing to it.
 	SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255); // set draw color
@@ -104,7 +105,7 @@ int GraphicsManager::RunApplication()
 		}
 
 		// ---- Application code ----
-		Update(renderer, rect, texture);
+		Update(renderer, rect, texture2);
 		SDL_Delay(16); // control framerate
 		// ----
 	}
