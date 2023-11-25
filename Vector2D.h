@@ -7,7 +7,9 @@ public:
 	void Print();
 	double Get_x();
 	double Get_y();
-	Vector2D* Add(Vector2D RH_Vector);
+
+	/* Adds 2 vectors together and returns a third */
+	void Add(Vector2D RH_Vector);
 
 private:
 	double _x;

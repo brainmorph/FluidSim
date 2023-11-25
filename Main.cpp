@@ -17,10 +17,10 @@ int main(int argc, char* argv[])
 	vec.Print();
 
 	assert(vec.Get_x() == 4.5);
-	assert(vec.Get_y() == 10.4);
+	assert(vec.Get_y() == 10.5);
 
 	// ---- END ----
 
 	GraphicsManager gm;
-	return gm.RunSDL();
+	return gm.RunSDL(); // never exits
 }

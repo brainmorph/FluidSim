@@ -25,10 +25,8 @@ double Vector2D::Get_y()
 	return _y;
 }
 
-Vector2D* Vector2D::Add(Vector2D RH_Vector)
+void Vector2D::Add(Vector2D RH_Vector)
 {
 	_x += RH_Vector.Get_x();
 	_y += RH_Vector.Get_y();
-	
-	return this;
 }
