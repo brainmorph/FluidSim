@@ -2,6 +2,7 @@
 #include <assert.h>     /* assert */
 #include "GraphicsManager.h"
 #include "Vector2D.h"
+#include "Particle.h"
 
 
 using namespace std;
@@ -9,16 +10,16 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	// ---- Test code ----
-	Vector2D vec(0, 0);
-	vec.Print();
 
-	Vector2D vec2(4.5, 10.5);
-	vec.Add(vec2);
-	vec.Print();
-
-	assert(vec.Get_x() == 4.5);
-	assert(vec.Get_y() == 10.5);
-
+	Particle pArray[100];
+	
+	while (true)
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			pArray[i].UpdatePositionBasedOnVelocity();
+		}
+	}
 	// ---- END ----
 
 	GraphicsManager gm;
