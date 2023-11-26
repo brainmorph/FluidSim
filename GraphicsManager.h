@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include "IDrawableObject.h"
 
 class GraphicsManager
 {
@@ -18,4 +19,7 @@ private:
 	void ClearEntireScreen(SDL_Renderer* renderer);
 	SDL_Texture* loadTexture(const char* filename, SDL_Renderer* renderer);
 	void blit(SDL_Texture* t, int x, int y, SDL_Renderer* renderer);
+	
+	int _NumObjectsToDraw = 2;
+	IDrawableObject* _DrawableObjects[2];
 };

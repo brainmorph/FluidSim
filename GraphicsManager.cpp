@@ -1,10 +1,14 @@
 #include "GraphicsManager.h"
 #include <iostream>
+#include "DrawableRectangle.h"
+
 using namespace std;
 
 GraphicsManager::GraphicsManager()
 {
-
+	_DrawableObjects[0] = new DrawableRectangle();
+	_DrawableObjects[1] = new DrawableRectangle();
+	// TODO: this is a bug waiting to happen, I need to prevent writing outside of the array.
 }
 
 int GraphicsManager::RunSDL()
@@ -29,7 +33,7 @@ int GraphicsManager::RunApplication()
 {
 	// Create a window
 	SDL_Window* window = SDL_CreateWindow(
-		"Title goes here",
+		"Simulation",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		1000,
@@ -70,7 +74,7 @@ int GraphicsManager::RunApplication()
 	SDL_SetRenderDrawColor(renderer, 200, 40, 40, 255); // set draw color
 	SDL_RenderFillRect(renderer, &rect);
 
-	SDL_RenderPresent(renderer); // update screen
+	PushBufferToScreen(renderer); // update screen
 
 	// Main loop
 	bool quit = false;
@@ -127,10 +131,16 @@ void GraphicsManager::Update(SDL_Renderer* renderer, SDL_Rect& rect, SDL_Texture
 	ClearEntireScreen(renderer);
 
 	// Choose color and draw rectangle
-	DrawRectangle(renderer, rect);
+	//DrawRectangle(renderer, rect);
 
 	// Draw texture
-	DrawTexture(texture, rect, renderer);
+	//DrawTexture(texture, rect, renderer);
+
+	// Draw all objects
+	for (int i = 0; i < _NumObjectsToDraw; i++)
+	{
+		_DrawableObjects[i]->Draw(renderer, rect);
+	}
 
 	// Push to screen
 	PushBufferToScreen(renderer);

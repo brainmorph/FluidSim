@@ -130,13 +130,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DrawableRectangle.cpp" />
     <ClCompile Include="GraphicsManager.cpp" />
+    <ClCompile Include="IDrawableObject.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Particle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DrawableRectangle.h" />
     <ClInclude Include="GraphicsManager.h" />
+    <ClInclude Include="IDrawableObject.h" />
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="Particle.h" />
   </ItemGroup>
