@@ -5,9 +5,8 @@
 class IDrawableObject
 {
 public:
-	virtual void Draw(SDL_Renderer* renderer, SDL_Rect& rect) {
-		return; // do absolutely nothing in the base class, let classes that implement this interface actually define the logic
-	}
+	virtual void Draw(SDL_Renderer* renderer) = 0; // pure virtual function to force subclasses to implement it
+	virtual void Move(double newX, double newY) = 0; // pure virtual function to force subclasses to implement it
 
 	virtual ~IDrawableObject() {}
 };

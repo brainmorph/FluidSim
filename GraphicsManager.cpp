@@ -139,7 +139,8 @@ void GraphicsManager::Update(SDL_Renderer* renderer, SDL_Rect& rect, SDL_Texture
 	// Draw all objects
 	for (int i = 0; i < _NumObjectsToDraw; i++)
 	{
-		_DrawableObjects[i]->Draw(renderer, rect);
+		_DrawableObjects[i]->Move(0.0, 0.0);
+		_DrawableObjects[i]->Draw(renderer);
 	}
 
 	// Push to screen
