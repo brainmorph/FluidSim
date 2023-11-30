@@ -1,6 +1,7 @@
 #include "GraphicsManager.h"
 #include <iostream>
 #include "DrawableRectangle.h"
+#include "Particle.h"
 
 using namespace std;
 
@@ -67,54 +68,48 @@ int GraphicsManager::RunApplication()
 	SDL_Texture* texture2 = loadTexture("gfx/sphere_small.png", renderer);
 
 	// At this point we have a renderer, we can start drawing to it.
-	SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255); // set draw color
-	SDL_RenderClear(renderer); // clear renderer with current draw color
+	SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255);
+	SDL_RenderClear(renderer);
 
 	SDL_Rect rect = { 100, 100, 200, 200 };
-	SDL_SetRenderDrawColor(renderer, 200, 40, 40, 255); // set draw color
+	SDL_SetRenderDrawColor(renderer, 200, 40, 40, 255);
 	SDL_RenderFillRect(renderer, &rect);
 
-	PushBufferToScreen(renderer); // update screen
+	PushBufferToScreen(renderer);
 
-	// Main loop
+	// Prep for main loop
 	bool quit = false;
 	SDL_Event e;
+
+	Particle pArray[100]; // scoped to this function
+
+	// Main loop where everything happens
 	while (!quit)
 	{
-		while (SDL_PollEvent(&e))
-		{
-			if (e.type == SDL_QUIT)
-			{
-				quit = true;
-			}
-			else if (e.type == SDL_KEYDOWN)
-			{
-				if (e.key.keysym.sym == SDLK_w)
-				{
-					rect.y -= 10;
-				}
-				else if (e.key.keysym.sym == SDLK_a)
-				{
-					rect.x -= 10;
-				}
-				else if (e.key.keysym.sym == SDLK_s)
-				{
-					rect.y += 10;
-				}
-				else if (e.key.keysym.sym == SDLK_d)
-				{
-					rect.x += 10;
-				}
-			}
-		}
+		HandleInputEvents(e, quit, rect);
 
-		// I need access to the particle array at this point...
 
 		// ---- Application code ----
 		ClearEntireScreen(renderer);
 
-		DrawAndPushToScreen(renderer, rect, texture2);
-		SDL_Delay(16); // control framerate
+		// I need access to the particle array at this point...
+		// Where is the particle array currently?
+		for (int i = 0; i < 100; i++)
+		{
+			pArray[i].UpdatePositionBasedOnVelocity();
+			pArray[i].UpdateVelocityBasedOnAcceleration();
+
+			rect.x = pArray[i].pos.Get_x() + i*10;
+			rect.y = pArray[i].pos.Get_y() + i*10;
+			
+
+			_DrawableObjects[i]->Draw(renderer);
+			PushBufferToScreen(renderer);
+
+			SDL_Delay(16); // control framerate
+		}
+
+
 		// ----
 	}
 
@@ -124,30 +119,34 @@ int GraphicsManager::RunApplication()
 	SDL_Quit();
 }
 
-/// <summary>
-/// Application logic for each frame
-/// </summary>
-/// <param name="renderer"></param>
-/// <param name="rect"></param>
-/// <param name="texture"></param>
-void GraphicsManager::DrawAndPushToScreen(SDL_Renderer* renderer, SDL_Rect& rect, SDL_Texture* texture)
+void GraphicsManager::HandleInputEvents(SDL_Event& e, bool& quit, SDL_Rect& rect)
 {
-
-	// Choose color and draw rectangle
-	//DrawRectangle(renderer, rect);
-
-	// Draw texture
-	//DrawTexture(texture, rect, renderer);
-
-	// Draw all objects
-	for (int i = 0; i < _NumObjectsToDraw; i++)
+	while (SDL_PollEvent(&e))
 	{
-		_DrawableObjects[i]->Move(0.0, 0.0);
-		_DrawableObjects[i]->Draw(renderer);
+		if (e.type == SDL_QUIT)
+		{
+			quit = true;
+		}
+		else if (e.type == SDL_KEYDOWN)
+		{
+			if (e.key.keysym.sym == SDLK_w)
+			{
+				rect.y -= 10;
+			}
+			else if (e.key.keysym.sym == SDLK_a)
+			{
+				rect.x -= 10;
+			}
+			else if (e.key.keysym.sym == SDLK_s)
+			{
+				rect.y += 10;
+			}
+			else if (e.key.keysym.sym == SDLK_d)
+			{
+				rect.x += 10;
+			}
+		}
 	}
-
-	// Push to screen
-	PushBufferToScreen(renderer);
 }
 
 void GraphicsManager::DrawTexture(SDL_Texture* texture, SDL_Rect& rect, SDL_Renderer* renderer)
