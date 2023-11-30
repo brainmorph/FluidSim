@@ -22,5 +22,5 @@ private:
 	void blit(SDL_Texture* t, int x, int y, SDL_Renderer* renderer);
 	
 	int _NumObjectsToDraw = 2;
-	IDrawableObject* _DrawableObjects[2];
+	IDrawableObject* _DrawableObjects[100];
 };

@@ -1,6 +1,12 @@
 #include "DrawableRectangle.h"
 #include <SDL.h>
 
+DrawableRectangle::DrawableRectangle(int width, int height)
+{
+	_Height = width;
+	_Width = height;
+}
+
 void DrawableRectangle::Draw(SDL_Renderer* renderer)
 {
 	_Rect.x = _PosX;

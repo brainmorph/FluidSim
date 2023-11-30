@@ -7,8 +7,10 @@ using namespace std;
 
 GraphicsManager::GraphicsManager()
 {
-	_DrawableObjects[0] = new DrawableRectangle();
-	_DrawableObjects[1] = new DrawableRectangle();
+	for (int i = 0; i < 100; i++)
+	{
+		_DrawableObjects[i] = new DrawableRectangle(10, 10);
+	}
 	// TODO: this is a bug waiting to happen, I need to prevent writing outside of the array.
 }
 
@@ -98,11 +100,8 @@ int GraphicsManager::RunApplication()
 		{
 			pArray[i].UpdatePositionBasedOnVelocity();
 			pArray[i].UpdateVelocityBasedOnAcceleration();
-
-			rect.x = pArray[i].pos.Get_x() + i*10;
-			rect.y = pArray[i].pos.Get_y() + i*10;
 			
-
+			_DrawableObjects[i]->Move(pArray[i].pos.Get_x() + i*10, pArray[i].pos.Get_y());
 			_DrawableObjects[i]->Draw(renderer);
 			PushBufferToScreen(renderer);
 
