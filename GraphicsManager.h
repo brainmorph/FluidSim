@@ -12,7 +12,7 @@ public:
 
 private:
 	int RunApplication();
-	void Update(SDL_Renderer* renderer, SDL_Rect& rect, SDL_Texture* texture);
+	void DrawAndPushToScreen(SDL_Renderer* renderer, SDL_Rect& rect, SDL_Texture* texture);
 	void DrawTexture(SDL_Texture* texture, SDL_Rect& rect, SDL_Renderer* renderer);
 	void DrawRectangle(SDL_Renderer* renderer, SDL_Rect& rect);
 	void PushBufferToScreen(SDL_Renderer* renderer);

@@ -108,8 +108,12 @@ int GraphicsManager::RunApplication()
 			}
 		}
 
+		// I need access to the particle array at this point...
+
 		// ---- Application code ----
-		Update(renderer, rect, texture2);
+		ClearEntireScreen(renderer);
+
+		DrawAndPushToScreen(renderer, rect, texture2);
 		SDL_Delay(16); // control framerate
 		// ----
 	}
@@ -126,9 +130,8 @@ int GraphicsManager::RunApplication()
 /// <param name="renderer"></param>
 /// <param name="rect"></param>
 /// <param name="texture"></param>
-void GraphicsManager::Update(SDL_Renderer* renderer, SDL_Rect& rect, SDL_Texture* texture)
+void GraphicsManager::DrawAndPushToScreen(SDL_Renderer* renderer, SDL_Rect& rect, SDL_Texture* texture)
 {
-	ClearEntireScreen(renderer);
 
 	// Choose color and draw rectangle
 	//DrawRectangle(renderer, rect);
